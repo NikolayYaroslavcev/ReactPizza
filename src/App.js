@@ -2,6 +2,7 @@ import './scss/app.scss';
 import {Header} from "./components/Header/Header";
 import {Categories} from "./components/Categories/Categories";
 import {Sort} from "./components/Sort/Sort";
+import pizzas from './assets/pizzas.json'
 import {Pizza} from "./components/Pizza/Pizza";
 
 
@@ -17,11 +18,18 @@ function App() {
                     </div>
                     <h2 className="content__title">Все пиццы</h2>
                     <div className="content__items">
-                        <Pizza title={'Неаполитанская пицца'} price={350}/>
-                        <Pizza title={'Кальцоне'} price={400}/>
-                        <Pizza title={'Римская пицца'} price={250}/>
-                        <Pizza title={'Сицилийская пицца'} price={420}/>
-                        <Pizza title={'Метровая пицца'} price={700}/>
+                        {pizzas.map(obj => {
+                            return (
+                                <Pizza
+                                    key={obj.id}
+                                    imageUrl={obj.imageUrl}
+                                    title={obj.title}
+                                    types={obj.types}
+                                    sizes={obj.sizes}
+                                    price={obj.price}
+                                />
+                            )
+                        })}
                     </div>
                 </div>
             </div>
