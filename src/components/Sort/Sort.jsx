@@ -1,4 +1,20 @@
+import {useState} from "react";
+
 export const Sort = () => {
+    const category = ['популярности', 'цене', 'алфавиту']
+    const [popup, setPopup] = useState(false)
+    const [selected, setSelected] = useState('популярности')
+
+
+    const onClickHandler = () => {
+        setPopup(!popup)
+    }
+    const onClickSelectedHandler = (c) => {
+        setSelected(c)
+        setPopup(false)
+    }
+
+
     return (
         <div className="sort">
             <div className="sort__label">
@@ -15,15 +31,19 @@ export const Sort = () => {
                     />
                 </svg>
                 <b>Сортировка по:</b>
-                <span>популярности</span>
+                <span onClick={onClickHandler}>{selected}</span>
             </div>
-            <div className="sort__popup">
+            {popup && <div className="sort__popup">
                 <ul>
-                    <li className="active">популярности</li>
-                    <li>цене</li>
-                    <li>алфавиту</li>
+                    {category.map((c, index) => {
+                        return (
+                            <li key={index} onClick={() => onClickSelectedHandler(c)}
+                                className={selected === c ? "active" : ''}>{c}</li>
+                        )
+                    })}
                 </ul>
             </div>
+            }
         </div>
     )
 }

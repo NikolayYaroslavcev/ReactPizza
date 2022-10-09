@@ -1,6 +1,7 @@
 import {useState} from "react";
 
 export const Pizza = ({imageUrl, title, types, sizes, price}) => {
+
     const typeNames = ['тонкое', 'традиционное']
 
     const [active, setActive] = useState(0)
