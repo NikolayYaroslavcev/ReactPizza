@@ -1,16 +1,25 @@
 import {useState} from "react";
 
-export const Sort = () => {
-    const category = ['популярности', 'цене', 'алфавиту']
+export const Sort = ({sort, onClickSort}) => {
+
+    const category = [
+        {name: 'популярности(DESC)', sortProperty: "rating"},
+        {name: 'популярности(ASC)', sortProperty: "-rating"},
+        {name: 'цене(DESC)', sortProperty: "prise"},
+        {name: 'цене(ASC)', sortProperty: "-prise"},
+        {name: 'алфавиту(DESC)', sortProperty: "title"},
+        {name: 'алфавиту(ASC)', sortProperty: "-title"},
+    ]
+
     const [popup, setPopup] = useState(false)
-    const [selected, setSelected] = useState('популярности')
 
 
     const onClickHandler = () => {
         setPopup(!popup)
     }
-    const onClickSelectedHandler = (c) => {
-        setSelected(c)
+
+    const onClickSelectedHandler = (index) => {
+        onClickSort(index)
         setPopup(false)
     }
 
@@ -31,14 +40,18 @@ export const Sort = () => {
                     />
                 </svg>
                 <b>Сортировка по:</b>
-                <span onClick={onClickHandler}>{selected}</span>
+                <span onClick={onClickHandler}>{sort.name}</span>
             </div>
             {popup && <div className="sort__popup">
                 <ul>
-                    {category.map((c, index) => {
+                    {category.map((obj, index) => {
                         return (
-                            <li key={index} onClick={() => onClickSelectedHandler(c)}
-                                className={selected === c ? "active" : ''}>{c}</li>
+                            <li
+                                key={index}
+                                onClick={() => onClickSelectedHandler(obj)}
+                                className={sort.sortProperty === obj.sortProperty ? "active" : ''}>
+                                {obj.name}
+                            </li>
                         )
                     })}
                 </ul>

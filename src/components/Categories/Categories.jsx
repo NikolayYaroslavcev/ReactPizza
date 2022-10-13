@@ -1,8 +1,4 @@
-import {useState} from "react";
-
-export const Categories = () => {
-
-    const [active, setActive] = useState(0)
+export const Categories = ({categoryId, onClickCategory}) => {
 
     const categories = [
         'Все',
@@ -13,20 +9,16 @@ export const Categories = () => {
         'Закрытые',
     ]
 
-    const onClickHandler = (index) => {
-        setActive(index)
-    }
-
 
     return (
         <div className="categories">
             <ul>
-                {categories.map((ct, index) => {
+                {categories.map((category, index) => {
                     return (
                         <li key={index}
-                            onClick={() => onClickHandler(index)}
-                            className={active === index ? "active" : ""}>
-                            {ct}
+                            onClick={() => onClickCategory(index)}
+                            className={categoryId === index ? "active" : ""}>
+                            {category}
                         </li>
                     )
                 })}
